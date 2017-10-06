@@ -30,7 +30,7 @@
 // keywords are wild cards.) The keywords originate from the Release
 // file, but several aliases are accepted.  The accepted keywords are:
 //   a,archive,suite (eg, "stable")
-//   c,component     (eg, "main", "crontrib", "non-free")
+//   c,component     (eg, "main", "contrib", "non-free")
 //   l,label         (eg, "Debian", "Debian-Security")
 //   o,origin        (eg, "Debian", "Unofficial Multimedia Packages")
 //   n,codename      (eg, "jessie", "jessie-updates")
@@ -139,6 +139,12 @@ Unattended-Upgrade::Package-Blacklist {
                 False)
 }}
 
+// Automatically reboot even if there are users currently logged in.
+{{ bool_option('Unattended-Upgrade::Automatic-Reboot-WithUsers',
+                unattended.get('automatic_reboot_with_users'),
+                True)
+}}
+
 // If automatic reboot is enabled and needed, reboot at the specific
 // time instead of immediately
 //  Default: "now"
@@ -152,4 +158,16 @@ Unattended-Upgrade::Package-Blacklist {
 {{ option('Acquire::http::Dl-Limit',
           unattended.get('dl_limit'),
           70)
+}}
+
+// Enable logging to syslog. Default is False
+{{ bool_option('Unattended-Upgrade::SyslogEnable',
+			   unattended.get('syslog_enable'),
+			   False)
+}}
+
+// Specify syslog facility. Default is daemon
+{{ option('Unattended-Upgrade::SyslogFacility',
+          unattended.get('syslog_facility'),
+          'daemon')
 }}
