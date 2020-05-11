@@ -49,7 +49,7 @@
 {% endif %}
 
 {% if r_arch != '' or r_opts != '' %}
-  {% set r_options = '[' ~ r_arch ~ ' ' ~ r_opts ~ ' ]' %}
+  {% set r_options = '[' ~ (r_arch ~ ' ' ~ r_opts)|trim ~ ']' %}
 {% else %}
   {% set r_options = '' %}
 {% endif %}
