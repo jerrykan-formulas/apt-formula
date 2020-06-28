@@ -7,13 +7,15 @@
 {% set default_url = apt.get('default_url', apt_map.default_url) %}
 
 /etc/apt/preferences:
-  {% if remove_preferences %}
-  file.absent
-  {% else %}
   file.managed:
     - mode: '0644'
     - user: root
     - group: root
+  {% if remove_preferences %}
+    - contents: ''
+    - contents_newline: False
+  {% else %}
+    - replace: False
   {% endif %}
 
 {{ preferences_dir }}:
@@ -23,7 +25,7 @@
     - group: root
     - clean: {{ clean_preferences_d }}
 
-{% for pref_file, args in preferences.iteritems() %}
+{% for pref_file, args in preferences.items() %}
 {%- set p_package = args.package if args.package is defined else '*' %}
 
 {{ preferences_dir }}/{{ pref_file }}:
