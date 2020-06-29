@@ -3,6 +3,7 @@
 
 {%- set distro_release = salt['grains.get']('osmajorrelease')|string -%}
 {%- set default_unattended_config_template = {
+    '8': 'salt://apt/templates/unattended_config.jinja',
     '9': 'salt://apt/templates/unattended_config.jinja',
     '10': 'salt://apt/templates/debian10/unattended_config.jinja',
 }.get(distro_release, '10') -%}
