@@ -5,7 +5,7 @@
 {%- set default_unattended_config_template = {
     '9': 'salt://apt/templates/unattended_config.jinja',
     '10': 'salt://apt/templates/debian10/unattended_config.jinja',
-}.get(distro_release, 'debian10') -%}
+}.get(distro_release, '10') -%}
 
 {% set apt = pillar.get('apt:unattended', {}) -%}
 {% set unattended_config_template = apt.get('unattended_config_template', default_unattended_config_template) -%}
